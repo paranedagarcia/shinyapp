@@ -4,8 +4,6 @@ library("plyr")
 library("dplyr")
 library(plotly)
 library(leaflet)
-library(geojson)
-library(geojsonio)
 library(shiny)
 library("rgdal")
 library("DT")
@@ -13,9 +11,10 @@ library("DT")
 #clg_data <- read.csv("ChG_countydata.csv")
 
 # Read data
-load("geodata.RData") # Hack: load comunas and regiones saved as R objects from a different server
 # comunas <- geojsonio::geojson_read("comunas.json", what = "sp")
 # regiones <- geojsonio::geojson_read("regiones.json", what = "sp")
+load("geodata.RData") # Hack: load comunas and regiones saved as R objects from a different server
+
 ancestry <- read.csv("ChG_countydata_ancestry.csv")
 
 
@@ -197,7 +196,6 @@ server <- function(input, output, ...) {
     output$xy <- renderPlotly({
         dfile <-filedata()
         if (is.null(dfile)) return(NULL)
-        
 
         xvar <- dfile[,input$from]
         yvar <- dfile[,input$to]
